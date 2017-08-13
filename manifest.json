@@ -1,0 +1,19 @@
+{
+	"manifest_version": 2,
+	"name": "Fake News Filter",
+	"version": "0.0.0",
+
+	"description": "Provides a warning for links and pages known to host fake news",
+
+	"icons": {
+		"48": "icons/logo.svg",
+		"96": "icons/logo.svg"
+	},
+
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": ["assets/filter-data.js", "content_scripts/filter.js"]
+		}
+	]
+}
