@@ -10,10 +10,20 @@
 		"96": "icons/logo.svg"
 	},
 
+	"browser_action": {
+		"default_icon": "icons/logo.svg",
+		"default_title": "Fake News Filter"
+	},
+
 	"content_scripts": [
 		{
 			"matches": ["<all_urls>"],
-			"js": ["assets/filter-data.js", "content_scripts/filter.js"]
+			"js": ["assets/filter-data.js", "content_scripts/filter.js"],
+			"run_at": "document_start"
 		}
-	]
+	],
+
+	"background": {
+		"scripts": ["background/background.js"]
+	}
 }
