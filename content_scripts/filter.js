@@ -17,6 +17,7 @@ function isPageFakeNews(url) {
 function getMatchedSiteIndex(hostname) {
 	log("Searching for a match.");
 
+	hostname = stripWwwFromHostname(hostname);
 	var searchString = new RegExp("^" + hostname + "$", "i");
 
 	for(var i = 0; i < filterData.data.length; i++) {
@@ -34,6 +35,21 @@ function getReasonForSiteMatch(index) {
 	return filterData.data[index][typeOfSite];
 }
 
+function stripWwwFromHostname(hostname) {
+	var domains = hostname.split(".");
+
+	if(domains[0] == "www") {
+		return domains.splice(1).join(".");
+	}
+
+	return hostname;
+}
+
 function log(message) {
 	console.log(fnf + message);
+}
+
+function browserButtonHandler() {
+	console.log("Pressed button");
+	alert("Pressed button");
 }
