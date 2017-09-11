@@ -17,7 +17,7 @@ var filterData = {
 		["AmericanPoliticNews.co","Fake news","Came up as available for use"],
 		["AmericanPresident.co","Fake news","Tblisi, Georgia"],
 		["AMPosts.com","Fake news","Chesterbrook, Pa. ^"],
-		["ANews24.org\u002F","Fake news","Panama, Pa. *"],
+		["ANews24.org","Fake news","Panama, Pa. *"],
 		["AngryPatriotMovement.com","Fake news","Scottsdale, Ariz. **"],
 		["Anonjekloy.tk","Fake news","Amsterdam, Netherlands"],
 		["AssociatedMediaCoverage.com","Parody site","Scottsdale, Ariz. **"],
