@@ -1,6 +1,6 @@
 {
 	"manifest_version": 2,
-	"name": "Fake News Filter",
+	"name": "Fake News Blocker",
 	"version": "0.0.0",
 
 	"description": "Provides a warning for links and pages known to host fake news",
@@ -11,8 +11,8 @@
 	},
 
 	"browser_action": {
-		"default_icon": "icons/logo.svg",
-		"default_title": "Fake News Filter"
+		"default_icon": "icons/logo-active.svg",
+		"default_title": "Disable Fake News Blocker"
 	},
 
 	"content_scripts": [
@@ -25,5 +25,9 @@
 
 	"background": {
 		"scripts": ["background/background.js"]
-	}
+	},
+
+	"permissions": [
+		"storage"
+	]
 }
