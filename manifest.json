@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Fake News Blocker",
-	"version": "0.0.0",
+	"version": "0.0.4",
 
 	"description": "Provides a warning for links and pages known to host fake news",
 
