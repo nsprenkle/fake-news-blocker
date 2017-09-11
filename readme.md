@@ -1,6 +1,9 @@
 # Fake News Blocker
 An addon to flag fake news sites.
 
+## How it works
+The Fake News Blocker uses a blacklist from the [Politifact Fake News Almanac](http://www.politifact.com/punditfact/article/2017/apr/20/politifacts-guide-fake-news-websites-and-what-they/). Sites found which match an entry on the blacklist trigger an alert message, warning of news sources that have historically been fraudulent. The blocker can be toggled by pressing its icon in the browser toolbar.
+
 ## Run as temporary Add-on (Beta)
 This extension is still in beta and therefore not officially published to any extension/add-on stores. To run this extension as a temporary add-on:
 
@@ -10,10 +13,6 @@ This extension is still in beta and therefore not officially published to any ex
 3. Open the extension's parent folder (with manifest.json) and load
 
 *Theoretically compatible (but not officially tested) with Chrome or Edge*
-
-## Resources
-Blacklist from [Politifact Fake News Almanac](http://www.politifact.com/punditfact/article/2017/apr/20/politifacts-guide-fake-news-websites-and-what-they/)
-
 
 ## Changelog
 0.0.4 - Saves enabled/disabled state in localStorage
