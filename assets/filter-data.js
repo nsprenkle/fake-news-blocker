@@ -5,6 +5,7 @@ var siteName = 0,
 var filterData = {
 	"header" : ["Site name","Type of site","Registration"],
 	"data" : [
+		["foo.com", "foo", "foo"],
 		["16WMPO.com","Imposter site","Scottsdale, Ariz. **"],
 		["24online.news","Imposter site","Panama, Pa. **"],
 		["24wpn.com","Fake news","Veles, Macedonia"],
@@ -115,7 +116,7 @@ var filterData = {
 		["Newslo.com","Parody site","Thessaloniki, Greece"],
 		["NewsJustForYou1.blogspot.com","Fake news","Mountain View, Calif."],
 		["NewzMagazine.com","Fake news","Scottsdale, Ariz. **"],
-		["NotAllowedTo.com","Fake news","https:\u002F\u002Fwww.whois.com\u002Fwhois\u002Fnotallowedto.com"],
+		["NotAllowedTo.com","Fake news","https://www.whois.com/whois/notallowedto.com"],
 		["Now8News.com","Imposter site","Scottsdale, Ariz. **"],
 		["OccupyDemocrats.com","Fake news","Langhorne, Pa. "],
 		["OnePoliticalPlaza.com","Fake news","Miami, Fla.^^^"],
