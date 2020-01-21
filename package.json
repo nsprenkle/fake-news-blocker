@@ -1,0 +1,22 @@
+{
+  "name": "fake-news-blocker",
+  "version": "0.0.5",
+  "description": "Provides a warning for links and pages known to host fake news",
+  "main": "background/background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nsprenkle/fake-news-blocker.git"
+  },
+  "author": "Nathan Sprenkle",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/nsprenkle/fake-news-blocker/issues"
+  },
+  "homepage": "https://github.com/nsprenkle/fake-news-blocker#readme",
+  "devDependencies": {
+    "webextension-polyfill": "^0.6.0"
+  }
+}
