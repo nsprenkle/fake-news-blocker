@@ -1,26 +1,21 @@
 # Fake News Blocker
-An addon to flag fake news sites.
+A browser add-on for warning users of fake news sites, parody sites, and other misleading journalistic sources.
 
-## How it works
-The Fake News Blocker uses a blacklist from the [Politifact Fake News Almanac](http://www.politifact.com/punditfact/article/2017/apr/20/politifacts-guide-fake-news-websites-and-what-they/). Sites found which match an entry on the blacklist trigger an alert message, warning of news sources that have historically been fraudulent. The blocker can be toggled by pressing its icon in the browser toolbar.
+Uses the [Politifact Fake News Almanac](http://www.politifact.com/punditfact/article/2017/apr/20/politifacts-guide-fake-news-websites-and-what-they/) as the source for known fake news websites.
 
-## Run as temporary Add-on (Beta)
-This extension is still in beta and therefore not officially published to any extension/add-on stores. To run this extension as a temporary add-on:
+The blocker can be toggled by pressing its icon in the browser toolbar.
+
+## How to run locally
+For developing, and until the extension is published to add-on stores, this extension can be run locally as a temporary add-on:
 
 ### Firefox
 1. Get the source code (download as zip & unpack or git clone)
 2. Goto [about:debugging](about:debugging) and click "Load Temporary Add-on"
-3. Open the extension's parent folder (with manifest.json) and load
+3. Open the extension directory/manifest.json
 
-*Theoretically compatible (but not officially tested) with Chrome or Edge*
-
-## Changelog
-0.0.4 - Saves enabled/disabled state in localStorage
-
-0.0.3 - Toggle state by clicking browser browser
-
-0.0.2 - Matching now works regardless of subdomains
-
-0.0.1 - Changed branding to "Fake News Blocker", added button to browser bar
-
-0.0.0 - Initial development, alerts user if hostname matches a blacklist of fake news sites
+### Chrome and Chromium based
+*Includes Opera, Microsoft Edge, Brave, Vivaldi, etc*
+1. Get the source code (download as zip & unpack or git clone)
+2. Open the Extension Management page by navigating to chrome://extensions.
+3. Enable Developer Mode by clicking the toggle switch next to Developer mode.
+4. Click the LOAD UNPACKED button and select the extension directory.
