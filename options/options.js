@@ -1,1 +1,1 @@
-const blockedHostsTextArea = document.querySelector("#blocked-hosts");
+const blockedHostsTextArea = document.querySelector('#blocked-hosts')
