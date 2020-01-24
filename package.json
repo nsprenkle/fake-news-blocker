@@ -4,7 +4,8 @@
   "description": "Provides a warning for links and pages known to host fake news",
   "main": "background/background.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "standard --verbose --fix"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,13 @@
   },
   "homepage": "https://github.com/nsprenkle/fake-news-blocker#readme",
   "devDependencies": {
+    "standard": "^14.3.1",
     "webextension-polyfill": "^0.6.0"
+  },
+  "standard": {
+    "ignore": [
+      "browser-polyfill.js"
+    ],
+    "globals": [ "browser" ]
   }
 }
