@@ -2,6 +2,10 @@ body {
     padding: 5rem;
 }
 
+#blocked-sites-collapsible {
+    cursor: pointer;
+}
+
 #blocked-sites {
     margin-top: 1rem;
 }
