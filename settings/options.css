@@ -1,0 +1,11 @@
+body {
+    padding: 5rem;
+}
+
+#blocked-sites {
+    margin-top: 1rem;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
