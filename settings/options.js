@@ -35,4 +35,12 @@ function displayBlockedSites(blockedSites) {
   });
 }
 
-displayBlockedSites(getBlockedSites())
+function updateBlockedSitesCount(blockedSites) {
+  let blockedSitesCountSelector = "site-count"
+  document.getElementById(blockedSitesCountSelector).textContent = blockedSites.length
+}
+
+blockedSites = getBlockedSites()
+
+displayBlockedSites(blockedSites)
+updateBlockedSitesCount(blockedSites)
