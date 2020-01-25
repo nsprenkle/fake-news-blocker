@@ -11,6 +11,7 @@ gettingStoredSettings.then(checkStoredSettings, onError)
 // Initialize settings and update icon to match state
 function checkStoredSettings (storedSettings) {
   var isActive = storedSettings[BLOCKER_ACTIVE_KEY]
+  localStorage.blockedSites = JSON.stringify(blockedSites)
 
   if (isActive == null) {
     browser.storage.local.set(defaultSettings)

@@ -27,6 +27,7 @@
 	"background": {
 		"scripts": [
 			"browser-polyfill.js",
+			"assets/blocked_sites.js",
 			"background/background.js"
 		]
 	},
