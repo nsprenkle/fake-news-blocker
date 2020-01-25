@@ -18,7 +18,7 @@
 			],
 			"js": [
 				"browser-polyfill.js",
-				"assets/filter-data.js",
+				"assets/blocked_sites.js",
 				"content_scripts/filter.js"
 			],
 			"run_at": "document_start"

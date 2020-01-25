@@ -40,8 +40,8 @@ function getMatchedSiteIndex (hostname) {
 
   log('Searching for a match.')
 
-  for (var i = 0; i < filterData.data.length; i++) {
-    site = new RegExp(filterData.data[i][siteName] + '$', 'i')
+  for (var i = 0; i < blockedSites.length; i++) {
+    site = new RegExp(blockedSites[i].siteName + '$', 'i')
 
     if (hostname.match(site)) {
       log('Match detected!')
@@ -55,7 +55,7 @@ function getMatchedSiteIndex (hostname) {
 
 // Get type of site data for a site index
 function getReasonForSiteMatch (index) {
-  return filterData.data[index][typeOfSite]
+  return blockedSites[index].typeOfSite
 }
 
 // Specially formatted log for Fake News Blocker
