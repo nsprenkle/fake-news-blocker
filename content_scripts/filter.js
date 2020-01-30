@@ -1,93 +1,73 @@
 /* global alert */
-var FNB_LOG_PREFIX = '[Fake News Blocker] - '
 var BLOCKER_ACTIVE_KEY = 'fakeNewsBlockerActive'
 
-// Run blocker if active
-browser.storage.local.get(BLOCKER_ACTIVE_KEY).then(function (setting) {
-  var active = setting[BLOCKER_ACTIVE_KEY]
-
-  if (active) {
-    log('Blocker enabled - Running...')
-    blockFakeNews()
-  } else {
-    log('Blocker disabled.')
-  }
-})
-
-// All blocker scripts here, currently just check domain against blacklist
-function blockFakeNews () {
-  var hostname = window.location.hostname
-  isPageFakeNews(hostname)
+/** Load blocked site list from config */
+function loadBlockedSiteList() {
+  return new Promise(resolve => {
+    browser.storage.local.get('blockedSites').then((data) => {
+      let blockedSites = JSON.parse(data.blockedSites)
+      console.debug(`Filter got ${blockedSites.length} blocked sites from config`)
+      resolve(blockedSites)
+    })
+  })
 }
 
-// Check if page matches search criteria and alert on positive match
-function isPageFakeNews (url) {
-  var matchedIndex = -1
-
-  log('Is ' + url + ' fake news?')
-
-  matchedIndex = getMatchedSiteIndex(url)
-
-  if (matchedIndex > -1) {
-    var reason = getReasonForSiteMatch(matchedIndex)
-    alert('Fake News Blocker\n\nWarning, ' + url + ' has been identified as ' + reason.toLowerCase() + '.\nContinue at your own risk.')
-  }
+/** Check storage to see if the blocker is active */
+function getBlockerActive() {
+  return new Promise(resolve => {
+    browser.storage.local.get(BLOCKER_ACTIVE_KEY).then(setting => {
+      resolve(setting[BLOCKER_ACTIVE_KEY])
+    })
+  })
 }
 
-// Search for match in blocked site list, returns matched index or -1l
-function getMatchedSiteIndex (hostname) {
-  var site = null
+/** Main loop
+ * 1. Check if blocker active
+ * 2. Load block list
+ * 3. Check site against block list
+ */
+function blockFakeNews() {
+  getBlockerActive().then(active => {
+    if (active) {
+      loadBlockedSiteList().then(blockedSites => {
 
-  log('Searching for a match.')
+        let matchedSite = getSiteFromBlacklist(window.location.hostname, blockedSites)
 
-  for (var i = 0; i < blockedSites.length; i++) {
-    site = new RegExp(blockedSites[i].siteName + '$', 'i')
-
-    if (hostname.match(site)) {
-      log('Match detected!')
-      return i
+        if (matchedSite) {
+          alert(`Fake News Blocker\n\nWarning, ${matchedSite.siteName} has been identified as ${matchedSite.typeOfSite.toLowerCase()}.\nContinue at your own risk.`)
+        } else {
+          console.debug(`${window.location.hostname} not found on blacklist`)
+        }
+      })
+    } else {
+      console.debug(`-- Fake news blocker is disabled --`)
     }
+  }).catch(reason => {
+    console.error(reason)
+  })
+}
+
+/** Search for match in blocked site list
+ * @returns Site or null
+ */
+function getSiteFromBlacklist(hostname, blockedSites) {
+  for (var i = 0; i < blockedSites.length; i++) {
+    let site = new RegExp(blockedSites[i].siteName + '$', 'i')
+
+    if (hostname.match(site)) { return blockedSites[i] }
   }
 
-  log('No match detected.')
-  return -1
+  return null
 }
 
-// Get type of site data for a site index
-function getReasonForSiteMatch (index) {
-  return blockedSites[index].typeOfSite
-}
-
-// Specially formatted log for Fake News Blocker
-function log (message) {
-  console.log(FNB_LOG_PREFIX + message)
-}
-
-// Find if blocker is enabled, create storage key if not found
-function isBlockerEnabled () {
-  var isActive = localStorage.getItem(BLOCKER_ACTIVE_KEY)
-
-  log('Is active? ' + isActive)
-
-  if (isActive == null) {
-    localStorage.setItem(BLOCKER_ACTIVE_KEY, true)
-    isActive = true
-  }
-
-  return isActive
+/** Check new blocker state, re-run blocker if newly enabled */
+function handleStorageChange(changes) {
+  var active = changes[BLOCKER_ACTIVE_KEY].newValue
+  if (active) { blockFakeNews() }
 }
 
 // When blocker state is toggled, run some page scripts
 browser.storage.onChanged.addListener(handleStorageChange)
 
-// Check new blocker state, re-run blocker if newly enabled
-function handleStorageChange (changes, area) {
-  var active = changes[BLOCKER_ACTIVE_KEY].newValue
-
-  if (active) {
-    log('Blocker enabled - Running...')
-    blockFakeNews()
-  } else {
-    log('Blocker disabled.')
-  }
-}
+// Run extension
+blockFakeNews()

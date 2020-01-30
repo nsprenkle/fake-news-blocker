@@ -1,4 +1,4 @@
-const blockedSites = [
+const defaultBlacklist = [
   {
     siteName: 'foo.com',
     typeOfSite: 'foo',

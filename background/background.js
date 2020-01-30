@@ -1,20 +1,31 @@
-var FNB_LOG_PREFIX = '[Fake News Blocker] - '
-var BLOCKER_ACTIVE_KEY = 'fakeNewsBlockerActive'
-var defaultSettings = {
+const BLOCKER_ACTIVE_KEY = 'fakeNewsBlockerActive'
+const BLOCKED_SITES_KEY = 'blockedSites'
+
+const defaultSettings = {
   fakeNewsBlockerActive: true
 }
 
 // Get settings on startup
-var gettingStoredSettings = browser.storage.local.get()
-gettingStoredSettings.then(checkStoredSettings, onError)
+let gettingStoredSettings = browser.storage.local.get()
+gettingStoredSettings.then(checkStoredSettings).catch(reason => {
+  console.error(reason)
+})
 
 // Initialize settings and update icon to match state
 function checkStoredSettings (storedSettings) {
-  var isActive = storedSettings[BLOCKER_ACTIVE_KEY]
-  localStorage.blockedSites = JSON.stringify(blockedSites)
+  let isActive = storedSettings[BLOCKER_ACTIVE_KEY]
 
+  // load the default settings if not initiated
   if (isActive == null) {
     browser.storage.local.set(defaultSettings)
+  }
+
+  let blockedSites = storedSettings[BLOCKED_SITES_KEY]
+
+  // load the default blocked sites if not initiated
+  if(!blockedSites) {
+    browser.storage.local.set({blockedSites: JSON.stringify(defaultBlacklist)})
+    console.log(`Loaded default blacklist with ${JSON.parse(localStorage.blockedSites).length} sites`)
   }
 
   updateBrowserButtonUi(isActive)
@@ -41,8 +52,8 @@ function updateBrowserButtonUi (active) {
 
 // Toggle the blocker state and icon
 function toggleBlockerState (item) {
-  var oldState = item.fakeNewsBlockerActive
-  var newState
+  let oldState = item.fakeNewsBlockerActive
+  let newState
 
   if (oldState == null || oldState == undefined) {
     oldState = true
@@ -50,24 +61,19 @@ function toggleBlockerState (item) {
 
   newState = !oldState
 
-  log(newState == true ? 'Blocker enabled' : 'Blocker disabled')
+  console.log(newState == true ? 'Blocker enabled' : 'Blocker disabled')
 
   browser.storage.local.set({ fakeNewsBlockerActive: newState })
 
   updateBrowserButtonUi(newState)
 }
 
-function onError (error) {
-  console.log(`Error: ${error}`)
-}
 
 function browserButtonHandler () {
-  const getBlockerIsActive = browser.storage.local.get('fakeNewsBlockerActive')
-  getBlockerIsActive.then(toggleBlockerState, onError)
+  const getBlockerIsActive = browser.storage.local.get(BLOCKER_ACTIVE_KEY)
+  getBlockerIsActive.then(toggleBlockerState).catch(reason => {
+    console.error(reason)
+  })
 }
 
 browser.browserAction.onClicked.addListener(browserButtonHandler)
-
-function log (message) {
-  console.log(`${FNB_LOG_PREFIX}${message}`)
-}
